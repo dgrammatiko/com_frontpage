@@ -127,7 +127,7 @@ class RemoveFatElement extends HyperHTMLElement {
   onchange(event) {
     event.preventDefault();
     event.stopPropagation();
-    console.log(event.target)
+
     let el = event.target;
     let value = el.value;
 
@@ -179,7 +179,4 @@ class RemoveFatElement extends HyperHTMLElement {
   }
 }
 
-RemoveFatElement.define('hide-joomla-junk');
-
-const El = new RemoveFatElement({})
-document.body.appendChild(El)
+RemoveFatElement.define('create-joomla-empty-component');

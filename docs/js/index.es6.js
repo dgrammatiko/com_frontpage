@@ -2,7 +2,7 @@
   <div class="card-footer">
     <button class="build-button" onclick="${se}" type="button">Computer,
       build me the component...</button>
-  </div>`;class he extends Vt{constructor(){super(),this.html=this.html.bind(this),this.render=this.render.bind(this),this.onchange=this.onchange.bind(this)}created(){this.componentName="Empty",this.componentNameLowercase="empty",this.disabled=!0,this.render()}onchange(t){t.preventDefault(),t.stopPropagation(),console.log(t.target);let e=t.target,n=e.value;n=oe(n),(n=ae(n)).charAt(0)!==n.charAt(0).toUpperCase()&&(n=n.replace(n.charAt(0),n.charAt(0).toUpperCase())),this.checkValidity(n)?(this.componentName=n,this.componentNameLowercase=n.toLowerCase(),e.value=n,this.disabled=!1):this.disabled=!0,n||(this.disabled=!0),this.render()}checkValidity(t){let e=!0;return re.forEach(n=>{if(n===t.toLowerCase())return e=!1}),e}render(){this.html`
+  </div>`;(class extends Vt{constructor(){super(),this.html=this.html.bind(this),this.render=this.render.bind(this),this.onchange=this.onchange.bind(this)}created(){this.componentName="Empty",this.componentNameLowercase="empty",this.disabled=!0,this.render()}onchange(t){t.preventDefault(),t.stopPropagation();let e=t.target,n=e.value;n=oe(n),(n=ae(n)).charAt(0)!==n.charAt(0).toUpperCase()&&(n=n.replace(n.charAt(0),n.charAt(0).toUpperCase())),this.checkValidity(n)?(this.componentName=n,this.componentNameLowercase=n.toLowerCase(),e.value=n,this.disabled=!1):this.disabled=!0,n||(this.disabled=!0),this.render()}checkValidity(t){let e=!0;return re.forEach(n=>{if(n===t.toLowerCase())return e=!1}),e}render(){this.html`
       <div class="card" data-component="${this.componentName}">
         <h1 class="h1">Joomla's Landing Page Component Creator</h1>
         <h2>Customise the component</h2>
@@ -11,4 +11,4 @@
           <input class="form-input" type="text" id="the-only-input" value="${this.componentName}" onkeyup=${this.onchange}>
         </div>
         ${this.disabled?"":ue}
-      </div>`}}he.define("hide-joomla-junk");const le=new he({});document.body.appendChild(le)}]);
+      </div>`}}).define("create-joomla-empty-component")}]);
