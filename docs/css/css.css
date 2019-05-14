@@ -1,0 +1,172 @@
+@font-face {
+  font-family: 'open_sanslight';
+  src: url('opensans-light-webfont.woff2') format('woff2'),
+       url('opensans-light-webfont.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: open_sanslight;
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+
+button:hover,
+button:focus {
+  cursor: pointer;
+}
+
+.build-button {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.075em;
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 2rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background-color: #54E0C7;
+  box-shadow: inset 0 0 0 2px #54E0C7;
+  color: #444 !important;
+  width: 100%;
+}
+
+.build-button:hover,
+.build-button:focus {
+  box-shadow: inset 0 0 0 2px #54E0C7;
+  color: #54E0C7 !important;
+  background-color: #fff;
+}
+
+.card {
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+  border: 1px solid #f3f3f3;
+}
+
+legend {
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  white-space: normal; /* 1 */
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.1rem;
+}
+
+input {
+  overflow: visible;
+}
+
+input {
+  display: inline-block;
+  outline: none;
+  border: none !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]) {
+  font-family: inherit;
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #f3f3f3;
+  background-color: #f9f9f9;
+  color: #444;
+  font-size: 1em;
+  transition: all 0.2s ease;
+  display: block;
+  width: 100%;
+}
+
+.input-group {
+display: flex;
+display: -ms-flexbox;
+}
+
+
+.input-group .form-input:not(:first-child):not(:last-child), .input-group .form-select:not(:first-child):not(:last-child), .input-group .input-group-addon:not(:first-child):not(:last-child), .input-group .input-group-btn:not(:first-child):not(:last-child) {
+border-radius: 0;
+margin-left: -.05rem;
+}
+
+button, input, optgroup, select, textarea {
+font-family: inherit;
+font-size: inherit;
+line-height: inherit;
+margin: 0;
+}
+button, input {
+overflow: visible;
+}
+
+.form-input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+background: #fff;
+background-image: none;
+border: .05rem solid #bcc3ce;
+border-radius: .1rem;
+color: #3b4351;
+display: block;
+font-size: .8rem;
+height: 1.8rem;
+line-height: 1.2rem;
+max-width: 100%;
+outline: 0;
+padding: .25rem .4rem;
+position: relative;
+transition: background .2s,border .2s,box-shadow .2s,color .2s;
+width: 100%;
+}
+
+.form-input.input-sm {
+font-size: .7rem;
+height: 1.4rem;
+padding: .05rem .3rem;
+}
+
+.input-group .form-input, .input-group .form-select {
+-ms-flex: 1 1 auto;
+flex: 1 1 auto;
+width: 1%;
+}

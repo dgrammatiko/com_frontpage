@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.9" client="site" method="upgrade" element="com_empty">
+  <name>{{componentName}} Component</name>
+  <element>com_{{componentNameLowercase}}</element>
+  <author>Michael Babker</author>
+  <creationDate>11 June 2016</creationDate>
+  <copyright>(C) 2016 Michael Babker, All Rights Reserved.</copyright>
+  <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+  <authorEmail>michael.babker@gmail.com</authorEmail>
+  <authorUrl>https://www.babdev.com</authorUrl>
+  <version>1.0.0</version>
+  <description>An empty component designed for pages which are showing modules only, save resources by not dispatching a component!</description>
+  <files folder="site">
+    <filename component="com_{{componentNameLowercase}}">{{componentNameLowercase}}.php</filename>
+    <filename>controller.php</filename>
+    <folder>views</folder>
+  </files>
+  <administration>
+    <!-- This is seriously required for a component to install... Sad panda... -->
+  </administration>
+</extension>

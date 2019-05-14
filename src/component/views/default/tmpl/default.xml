@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <layout title="{{componentName}} Component" option="default">
+    <message>
+      <![CDATA[Render an {{componentNameLowercase}} component page]]>
+    </message>
+  </layout>
+</metadata>
