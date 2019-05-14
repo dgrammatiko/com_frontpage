@@ -1,7 +1,5 @@
 import HyperHTMLElement from 'hyperhtml-element';
-import { JSZip, saveAs, dataControllerPhp, dataEmptyPhp, dataEmptyXml, dataViewHtmlPhp, dataMetadataXml, dataDefaultXml, dataDefaultPhp } from './data'
-
-const zip = new JSZip();
+import { JSZip, saveAs, dataControllerPhp, dataEmptyPhp, dataEmptyXml, dataViewHtmlPhp, dataMetadataXml, dataDefaultXml, dataDefaultPhp } from './data';
 
 const reserved = [
   'ajax',
@@ -49,7 +47,7 @@ const alpha_numeric_filter = (string) => {
 };
 
 const removeFirstNum = (str) => {
-  while (typeof str.charAt(0) === 'number') {
+  while ([1, 2, 3, 4, 5, 6, 7, 8, 9].indexOf(parseInt(str.charAt(0))) > -1 || '0' === str.charAt(0)) {
     str = str.substr(1);
   }
 
@@ -57,6 +55,7 @@ const removeFirstNum = (str) => {
 }
 
 const generateZip = (ev) => {
+  const zip = new JSZip();
   const div = ev.target.parentNode.parentNode;
   const componentName = div.getAttribute('data-component');
 
@@ -66,11 +65,11 @@ const generateZip = (ev) => {
 
   let emptyXml = replaceAll(dataEmptyXml, '{{componentName}}', componentName);
   emptyXml = replaceAll(emptyXml, '{{componentNameLowercase}}', componentName.toLowerCase());
-  zip.file(`${componentName}.xml`, emptyXml);
+  zip.file(`${componentName.toLowerCase()}.xml`, emptyXml);
 
   let emptyPhp = replaceAll(dataEmptyPhp, '{{componentName}}', componentName);
   emptyPhp = replaceAll(emptyPhp, '{{componentNameLowercase}}', componentName.toLowerCase());
-  zip.file(`${componentName}.php`, emptyPhp);
+  zip.file(`${componentName.toLowerCase()}.php`, emptyPhp);
 
   const views = zip.folder("views");
   const defaultF = views.folder("default");
@@ -94,7 +93,7 @@ const generateZip = (ev) => {
   tmpl.file("default.php", defaultPhp);
 
   zip.generateAsync({ type: "blob" }).then((blob) => {
-    saveAs(blob, `com_${componentName}.zip`);
+    saveAs(blob, `com_${componentName.toLowerCase()}.zip`);
   }, (err) => {
     this.text(err);
   });
@@ -112,6 +111,7 @@ class RemoveFatElement extends HyperHTMLElement {
   constructor() {
     super()
 
+    this.html = this.html.bind(this);
     this.render = this.render.bind(this);
     this.onchange = this.onchange.bind(this);
   }
@@ -127,15 +127,15 @@ class RemoveFatElement extends HyperHTMLElement {
   onchange(event) {
     event.preventDefault();
     event.stopPropagation();
-
+    console.log(event.target)
     let el = event.target;
     let value = el.value;
 
     value = alpha_numeric_filter(value);
     value = removeFirstNum(value);
 
-    if (value.length && value.charAt(0) !== value.charAt(0).toUpperCase()) {
-      value = value.replace(firstChar, firstChar.toUpperCase());
+    if (value.charAt(0) !== value.charAt(0).toUpperCase()) {
+      value = value.replace(value.charAt(0), value.charAt(0).toUpperCase());
     }
 
     if (this.checkValidity(value)) {
@@ -144,8 +144,11 @@ class RemoveFatElement extends HyperHTMLElement {
       el.value = value;
       this.disabled = false;
     } else {
-      this.componentName = 'Empty';
-      this.componentNameLowercase = 'empty';
+      this.disabled = true;
+    }
+
+    if (!value) {
+      this.disabled = true;
     }
 
     this.render()
@@ -171,8 +174,7 @@ class RemoveFatElement extends HyperHTMLElement {
           <label class="form-label" for="the-only-input">Component name </label>
           <input class="form-input" type="text" id="the-only-input" value="${this.componentName}" onkeyup=${this.onchange}>
         </div>
-        ${GenButton}
-      
+        ${!this.disabled ? GenButton : ''}
       </div>`;
   }
 }

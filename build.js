@@ -37,7 +37,6 @@ const commonConfig = {
   plugins: [
     new CopyPlugin([
       { from: 'src/assets/index.html', to: path.resolve(__dirname, 'docs/index.html') },
-      { from: 'src/assets/js/json.json', to: path.resolve(__dirname, 'docs/js/json.json') },
       { from: 'src/assets/css/css.css', to: path.resolve(__dirname, 'docs/css/css.css') },
       { from: 'src/assets/css/opensans-light-webfont.woff2', to: path.resolve(__dirname, 'docs/css/opensans-light-webfont.woff2') },
       { from: 'src/assets/css/opensans-light-webfont.woff', to: path.resolve(__dirname, 'docs/css/opensans-light-webfont.woff') },
