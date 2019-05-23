@@ -24,7 +24,7 @@
     "webpack-split-chunks": "^0.2.1"
   },
   "devDependencies": {
-    "@babel/core": "7.4.4",
+    "@babel/core": "7.4.5",
     "@babel/preset-env": "7.4.4",
     "babel-loader": "8.0.6",
     "compression-webpack-plugin": "2.0.0",
