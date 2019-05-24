@@ -19,7 +19,7 @@
   "homepage": "https://github.com/dgrammatiko/com_frontpage#readme",
   "dependencies": {
     "file-saver": "^2.0.1",
-    "hyperhtml-element": "^3.6.0",
+    "hyperhtml-element": "^3.8.0",
     "jszip": "^3.1.5",
     "webpack-split-chunks": "^0.2.1"
   },
