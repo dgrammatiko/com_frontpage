@@ -10,8 +10,3 @@
 - `npm i`
 - `npm run build` or `node build.js`
 - To serve locally run `npx http-server`
-
-
-
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdgrammatiko%2Fcom_frontpage.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdgrammatiko%2Fcom_frontpage?ref=badge_large)
