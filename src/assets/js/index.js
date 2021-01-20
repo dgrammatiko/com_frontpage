@@ -10,7 +10,7 @@ import {
 import {removeFirstNum, alpha_numeric_filter, replaceAll, reservedNames } from './utils.js';
 
 configure({
-  workerScriptsPath: '/com_frontpage/js/',
+  workerScriptsPath: '/com_frontpage/js/', // /com_frontpage/js/ for production or /docs/js/ for local
 });
 
 class ComponentCreator extends HTMLElement {
@@ -18,9 +18,9 @@ class ComponentCreator extends HTMLElement {
     super()
 
     this.jVersion = 4;
-    this.writer = new BlobWriter("application/zip")
     this.renderEl = this.renderEl.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
     this.generateZip = this.generateZip.bind(this);
     this.transform = this.transform.bind(this);
     this.addFile = this.addFile.bind(this);
@@ -46,9 +46,6 @@ class ComponentCreator extends HTMLElement {
   }
 
   onInputChange(event) {
-    // event.preventDefault();
-    // event.stopPropagation();
-
     let el = event.target;
     let value = el.value;
     value = alpha_numeric_filter(value);
@@ -58,7 +55,6 @@ class ComponentCreator extends HTMLElement {
       value = value.replace(value.charAt(0), value.charAt(0).toUpperCase());
     }
 
-    console.log(value)
     if (!reservedNames.includes(value.toLowerCase())) {
       this.componentName = value;
       this.componentNameLowercase = value.toLowerCase();
@@ -78,6 +74,8 @@ class ComponentCreator extends HTMLElement {
   onSelectChange(event) {
     const sel = event.target;
     this.jVersion = parseInt(sel.options[sel.selectedIndex].value, 10);
+
+    this.renderEl();
   }
 
   transform(el, data, files) {
@@ -92,6 +90,7 @@ class ComponentCreator extends HTMLElement {
   }
 
   async generateZip() {
+    this.writer = new BlobWriter("application/zip");
     this.ZipWriter = new ZipWriter(this.writer);
     let blobURL;
     const queue = [];
@@ -106,17 +105,14 @@ class ComponentCreator extends HTMLElement {
       await zipReader.close();
       blobURL = URL.createObjectURL(await this.writer.getData());
       this.ZipWriter = null;
+      let a = document.createElement('a');
+      a.href = blobURL;
+      a.download = `${this.componentName.toLowerCase()}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     } catch (error) {
       alert(error);
-    }
-
-    if (blobURL) {
-      let a = document.createElement('a')
-      a.href = blobURL
-      a.download = `${this.componentName.toLowerCase()}.zip`;
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
     }
   }
 
