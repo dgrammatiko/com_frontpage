@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node build.js && eleventy"
+    "build": "node build.js && eleventy",
+    "serve": "node build.js && eleventy --serve"
   },
   "author": "Dimitrios Grammatikogiannis",
   "license": "MIT",
