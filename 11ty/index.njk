@@ -3,8 +3,6 @@
 <html lang="en">
 
 <head>
-  <!-- Uncoment for local -->
-  <!-- <base href="/docs/"> -->
   <link rel="prelod" href="css/opensans-light-webfont.woff2" as="font/woff2">
   <link rel="modulepreload" href="js/index.esm.js">
   <meta charset="UTF-8">
@@ -12,9 +10,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="Description" content="Create a custom Joomla component for usage on the frontpage, aka modules only view">
   <title>Build me a blank component</title>
-  <style>body{}</style>
+  <style>{{ getCss.css | safe}}</style>
   <script type="module" src="js/index.esm.js"></script>
-  <script id="data" type="application/json">{{JSONDATA}}</script>
+  <script id="data" type="application/json">{{ data | dump | safe}}</script>
 </head>
 
 <body>
