@@ -121,14 +121,14 @@ class ComponentCreator extends HTMLElement {
       this,
       html`
         <div class="card" data-component="${this.componentName}">
-          <h1 class="h1">Joomla SPA Component Creator</h1>
+          <h1>Joomla SPA Component Creator</h1>
           <h2>Customise the component</h2>
           <div class="card">
-            <label class="form-label" for="text-input">Component Name </label>
-            <input class="form-input" type="text" id="text-input" value="${this.componentName}" onkeyup=${this.onInputChange}>
+            <label for="text-input">Component Name </label>
+            <input type="text" id="text-input" value="${this.componentName}" onkeyup=${this.onInputChange}>
             <br>
-            <label class="form-label" for="select-input">For Joomla </label>
-            <select value=${this.jVersion} oninput=${this.onSelectChange} id=select-input>
+            <label for="select-input">For Joomla </label>
+            <select value=${this.jVersion} oninput=${this.onSelectChange} id="select-input">
               <option value='4'>Version 4.x</option>
               <option value='3'>Version 3.x</option>
             </select>
