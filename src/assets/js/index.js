@@ -133,7 +133,7 @@ class ComponentCreator extends HTMLElement {
             <br>
             <label for="select-input">For Joomla </label>
             <select value=${this.jVersion} oninput=${this.onSelectChange} id="select-input">
-              ${[4, 3].map(el => html`<option value=${el} .checked=${this.jVersion === el} >Version ${el}.x</option>`)}
+              ${[4, 3].map(ver => html`<option value="${ver}" .selected="${this.jVersion === ver}">Version ${ver}.x</option>`)}
             </select>
           </div>
           <div class="card-footer">

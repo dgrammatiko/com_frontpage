@@ -9,14 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="Description" content="Create a custom Joomla component for usage on the frontpage, aka modules only view">
-  <title>Build me a blank component</title>
+  <title>Joomla SPA Component Creator</title>
   <style>{{ getCss.css | safe}}</style>
   <script type="module" src="js/index.esm.js"></script>
 </head>
 
 <body>
   <create-joomla-empty-component style="display: block; min-height: 600px;">
-    <noscript>No Javascript? No Joy for you then...</noscript>
+    <noscript><h1>No Javascript? No Joy for you then...</h1></noscript>
     <script id="data" type="application/json">{{ data | dump | safe}}</script>
   </create-joomla-empty-component>
   <div class="card">

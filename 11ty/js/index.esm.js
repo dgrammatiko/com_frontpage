@@ -8,7 +8,7 @@
             <br>
             <label for="select-input">For Joomla </label>
             <select value=${this.jVersion} oninput=${this.onSelectChange} id="select-input">
-              ${[4,3].map(t=>rt`<option value=${t} .checked=${this.jVersion===t} >Version ${t}.x</option>`)}
+              ${[4,3].map(t=>rt`<option value="${t}" .selected="${this.jVersion===t}">Version ${t}.x</option>`)}
             </select>
           </div>
           <div class="card-footer">
