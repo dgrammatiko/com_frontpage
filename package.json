@@ -23,8 +23,8 @@
     "uhtml": "^2.3.1"
   },
   "devDependencies": {
-    "esbuild": "^0.8.33",
+    "esbuild": "0.8.33",
     "http-server": "0.12.3",
-    "rimraf": "^3.0.2"
+    "rimraf": "3.0.2"
   }
 }
