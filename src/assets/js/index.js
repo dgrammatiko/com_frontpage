@@ -81,6 +81,10 @@ class ComponentCreator extends HTMLElement {
   transform(el, data, files) {
     let curData = replaceAll(data[el], '{{componentName}}', this.componentName);
     curData = replaceAll(curData, '{{componentNameLowercase}}', this.componentName.toLowerCase());
+    if (el === 'empty.xml') {
+      el = `com_${this.componentNameLowercase}.xml`
+    }
+
     files[el] = curData;
   }
 
@@ -107,7 +111,7 @@ class ComponentCreator extends HTMLElement {
       this.ZipWriter = null;
       let a = document.createElement('a');
       a.href = blobURL;
-      a.download = `${this.componentName.toLowerCase()}.zip`;
+      a.download = `com_${this.componentNameLowercase}.zip`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
