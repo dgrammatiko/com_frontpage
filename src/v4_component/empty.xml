@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="4.0" client="site" method="upgrade" element="com_{{componentNameLowercase}}">
+  <name>{{componentName}} Component</name>
+  <element>com_{{componentNameLowercase}}</element>
+  <author>Dimitris Grammatikogiannis</author>
+  <creationDate>9 Jan 2021</creationDate>
+  <copyright>(C) 2021 Dimitris Grammatikogiannis, All Rights Reserved.</copyright>
+  <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+  <authorEmail>d.grammatiko@gmail.com</authorEmail>
+  <authorUrl>https://Dimitris Grammatikogiannis.online</authorUrl>
+  <version>1.0.0</version>
+  <description>{{componentName}} component!</description>
+  <namespace path="src">Ttc\Component\{{componentName}}</namespace>
+  <files folder="site">
+    <folder>src</folder>
+    <folder>tmpl</folder>
+  </files>
+  <administration>
+    <files folder="admin">
+      <folder>services</folder>
+    </files>
+  </administration>
+</extension>
