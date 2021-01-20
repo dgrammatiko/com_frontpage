@@ -12,6 +12,12 @@ html {
   font-family: open_sanslight;
 }
 
+@media (max-width: 668px){
+  body {
+    padding: 0 2rem;
+  }
+}
+
 .build-button {
   margin-top: 2rem;
   margin-bottom: 2rem;
