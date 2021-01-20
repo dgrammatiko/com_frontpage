@@ -56,8 +56,8 @@ class ComponentCreator extends HTMLElement {
     }
 
     if (!reservedNames.includes(value.toLowerCase())) {
-      this.componentName = value;
       this.componentNameLowercase = value.toLowerCase();
+      this.componentName = this.componentNameLowercase.charAt(0).toUpperCase() + this.componentNameLowercase.slice(1)
       el.value = value;
       this.disabled = false;
     } else {
