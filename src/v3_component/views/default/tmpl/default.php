@@ -15,8 +15,8 @@ $document = Factory::getDocument();
 $renderer = $document->loadRenderer('modules');
 
 // Alternative method
-//$document->setTitle('Creating perfect grid layouts');
-//$document->setDescription('The best grid creation tool');
+$document->setTitle('Creating perfect grid layouts');
+$document->setDescription('The best grid creation tool');
 
 // The actual page:
 echo

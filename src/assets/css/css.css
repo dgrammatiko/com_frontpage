@@ -1,15 +1,9 @@
 @font-face {
   font-family: 'open_sanslight';
-  src: url('opensans-light-webfont.woff2') format('woff2'),
-       url('opensans-light-webfont.woff') format('woff');
+  src: url('css/opensans-light-webfont.woff2') format('woff2'),
+       url('css/opensans-light-webfont.woff') format('woff');
   font-weight: 100;
   font-style: normal;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
 }
 
 body,
@@ -17,16 +11,6 @@ html {
   height: 100%;
   font-family: open_sanslight;
   font-size: 16px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0 0 10px;
-  text-align: center;
 }
 
 button {

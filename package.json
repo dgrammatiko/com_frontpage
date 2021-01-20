@@ -18,21 +18,18 @@
   },
   "homepage": "https://github.com/dgrammatiko/com_frontpage#readme",
   "dependencies": {
+    "@transcend-io/conflux": "^3.2.0",
+    "@zip.js/zip.js": "^2.0.1",
+    "esbuild": "^0.8.33",
     "file-saver": "^2.0.1",
     "hyperhtml-element": "^3.6.0",
     "jszip": "^3.1.5",
-    "webpack-split-chunks": "^0.2.1"
+    "naf-css": "^2.0.0",
+    "rimraf": "^3.0.2",
+    "uhtml": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/core": "7.4.4",
-    "@babel/preset-env": "7.4.4",
-    "babel-loader": "8.0.6",
-    "compression-webpack-plugin": "2.0.0",
-    "copy-webpack-plugin": "5.0.3",
-    "fs": "0.0.2",
     "http-server": "0.11.1",
-    "path": "0.12.7",
-    "terser-webpack-plugin": "1.2.3",
-    "webpack": "4.31.0"
+    "terser-webpack-plugin": "1.2.3"
   }
 }

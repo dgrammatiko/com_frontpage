@@ -1,136 +1,56 @@
-import HyperHTMLElement from 'hyperhtml-element';
-import { JSZip, saveAs, dataControllerPhp, dataEmptyPhp, dataEmptyXml, dataViewHtmlPhp, dataMetadataXml, dataDefaultXml, dataDefaultPhp } from './data';
+import {render, html} from 'uhtml';
+import {
+  configure,
+  ZipReader,
+  ZipWriter,
+  BlobReader,
+  BlobWriter,
+} from '@zip.js/zip.js/lib/zip.js';
 
-const reserved = [
-  'ajax',
-  'banners',
-  'config',
-  'contact',
-  'content',
-  'contenthistory',
-  'fields',
-  'finder',
-  'mailto',
-  'media',
-  'menus',
-  'modules',
-  'newsfeeds',
-  'privacy',
-  'search',
-  'tags',
-  'users',
-  'wrapper'
-];
+import {removeFirstNum, alpha_numeric_filter, replaceAll, reservedNames } from './utils.js';
 
-const escapeRegExp = (str) => {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-}
+configure({
+  workerScriptsPath: '/docs/js/',
+});
 
-const replaceAll = (str, find, replace) => {
-  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
-
-const alpha_numeric_filter = (string) => {
-  const alpha_numeric = Array.from('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
-  const json_string = JSON.stringify(string)
-  let filterd_string = ''
-
-  for (let i = 0; i < json_string.length; i++) {
-    let char = json_string[i]
-    let index = alpha_numeric.indexOf(char)
-    if (index > -1) {
-      filterd_string += alpha_numeric[index]
-    }
-  }
-
-  return filterd_string
-};
-
-const removeFirstNum = (str) => {
-  while ([1, 2, 3, 4, 5, 6, 7, 8, 9].indexOf(parseInt(str.charAt(0))) > -1 || '0' === str.charAt(0)) {
-    str = str.substr(1);
-  }
-
-  return str;
-}
-
-const generateZip = (ev) => {
-  const zip = new JSZip();
-  const div = ev.target.parentNode.parentNode;
-  const componentName = div.getAttribute('data-component');
-
-  let controllerPhp = replaceAll(dataControllerPhp, '{{componentName}}', componentName);
-  controllerPhp = replaceAll(controllerPhp, '{{componentNameLowercase}}', componentName.toLowerCase());
-  zip.file("controller.php", controllerPhp);
-
-  let emptyXml = replaceAll(dataEmptyXml, '{{componentName}}', componentName);
-  emptyXml = replaceAll(emptyXml, '{{componentNameLowercase}}', componentName.toLowerCase());
-  zip.file(`${componentName.toLowerCase()}.xml`, emptyXml);
-
-  let emptyPhp = replaceAll(dataEmptyPhp, '{{componentName}}', componentName);
-  emptyPhp = replaceAll(emptyPhp, '{{componentNameLowercase}}', componentName.toLowerCase());
-  zip.file(`${componentName.toLowerCase()}.php`, emptyPhp);
-
-  const views = zip.folder("views");
-  const defaultF = views.folder("default");
-
-  let viewHtmlPhp = replaceAll(dataViewHtmlPhp, '{{componentName}}', componentName);
-  viewHtmlPhp = replaceAll(viewHtmlPhp, '{{componentNameLowercase}}', componentName.toLowerCase());
-  defaultF.file("view.html.php", viewHtmlPhp);
-
-  let metadataXml = replaceAll(dataMetadataXml, '{{componentName}}', componentName);
-  metadataXml = replaceAll(metadataXml, '{{componentNameLowercase}}', componentName.toLowerCase());
-  defaultF.file("metadata.xml", metadataXml);
-
-
-  const tmpl = defaultF.folder("tmpl");
-  let defaultXml = replaceAll(dataDefaultXml, '{{componentName}}', componentName);
-  defaultXml = replaceAll(defaultXml, '{{componentNameLowercase}}', componentName.toLowerCase());
-  tmpl.file("default.xml", defaultXml);
-
-  let defaultPhp = replaceAll(dataDefaultPhp, '{{componentName}}', componentName);
-  defaultPhp = replaceAll(defaultPhp, '{{componentNameLowercase}}', componentName.toLowerCase());
-  tmpl.file("default.php", defaultPhp);
-
-  zip.generateAsync({ type: "blob" }).then((blob) => {
-    saveAs(blob, `com_${componentName.toLowerCase()}.zip`);
-  }, (err) => {
-    this.text(err);
-  });
-}
-
-const GenButton = (name) => {
-  return HyperHTMLElement.wire(generateZip)`
-  <div class="card-footer">
-    <button class="build-button" onclick="${generateZip}" type="button">Computer,
-      build me the component...</button>
-  </div>`;
-}
-
-class RemoveFatElement extends HyperHTMLElement {
+class ComponentCreator extends HTMLElement {
   constructor() {
     super()
 
-    this.html = this.html.bind(this);
-    this.render = this.render.bind(this);
-    this.onchange = this.onchange.bind(this);
+    this.jVersion = 4;
+    this.writer = new BlobWriter("application/zip")
+    this.renderEl = this.renderEl.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.generateZip = this.generateZip.bind(this);
+    this.transform = this.transform.bind(this);
+    this.addFile = this.addFile.bind(this);
   }
 
-  created() {
+  connectedCallback() {
+    const jsonEl = document.getElementById('data');
+    try {
+      this.data = JSON.parse(jsonEl.innerText);
+    } catch (err) {
+      throw new Error('Malformed JSON...')
+    }
+
+    if (!this.data) {
+      throw new Error('Data is missing...')
+    }
+
     this.componentName = 'Empty';
     this.componentNameLowercase = 'empty';
     this.disabled = true;
 
-    this.render();
+    this.renderEl();
   }
 
-  onchange(event) {
-    event.preventDefault();
-    event.stopPropagation();
+  onInputChange(event) {
+    // event.preventDefault();
+    // event.stopPropagation();
 
     let el = event.target;
     let value = el.value;
-
     value = alpha_numeric_filter(value);
     value = removeFirstNum(value);
 
@@ -138,7 +58,8 @@ class RemoveFatElement extends HyperHTMLElement {
       value = value.replace(value.charAt(0), value.charAt(0).toUpperCase());
     }
 
-    if (this.checkValidity(value)) {
+    console.log(value)
+    if (!reservedNames.includes(value.toLowerCase())) {
       this.componentName = value;
       this.componentNameLowercase = value.toLowerCase();
       el.value = value;
@@ -151,32 +72,79 @@ class RemoveFatElement extends HyperHTMLElement {
       this.disabled = true;
     }
 
-    this.render()
+    this.renderEl()
   }
 
-  checkValidity(name) {
-    let valid = true;
-    reserved.forEach(val => {
-      if (val === name.toLowerCase()) {
-        return valid = false;
-      }
-    });
-
-    return valid;
+  onSelectChange(event) {
+    const sel = event.target;
+    this.jVersion = parseInt(sel.options[sel.selectedIndex].value, 10);
   }
 
-  render() {
-    this.html`
-      <div class="card" data-component="${this.componentName}">
-        <h1 class="h1">Joomla's Landing Page Component Creator</h1>
-        <h2>Customise the component</h2>
-        <div class="card">
-          <label class="form-label" for="the-only-input">Component name </label>
-          <input class="form-input" type="text" id="the-only-input" value="${this.componentName}" onkeyup=${this.onchange}>
-        </div>
-        ${!this.disabled ? GenButton : ''}
-      </div>`;
+  transform(el, data, files) {
+    let curData = replaceAll(data[el], '{{componentName}}', this.componentName);
+    curData = replaceAll(curData, '{{componentNameLowercase}}', this.componentName.toLowerCase());
+    files[el] = curData;
+  }
+
+  async addFile(fileName, contents) {
+    const theBlob = new Blob([contents], { type: "text/plain" });
+    await this.ZipWriter.add(fileName, new BlobReader(theBlob));
+  }
+
+  async generateZip() {
+    this.ZipWriter = new ZipWriter(this.writer);
+    let blobURL;
+    const queue = [];
+    const files = {};
+    const data = this.data[`v${this.jVersion}`].files;
+    Object.keys(data).map(el => this.transform(el, data, files));
+    Object.keys(files).map(el => queue.push(this.addFile(`${el}`, files[el], {})));
+    await Promise.all(queue);
+    const zipReader = new ZipReader(new BlobReader(await this.ZipWriter.close()));
+
+    try {
+      await zipReader.close();
+      blobURL = URL.createObjectURL(await this.writer.getData());
+      this.ZipWriter = null;
+    } catch (error) {
+      alert(error);
+    }
+
+    if (blobURL) {
+      let a = document.createElement('a')
+      a.href = blobURL
+      a.download = `${this.componentName.toLowerCase()}.zip`;
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    }
+  }
+
+  renderEl() {
+    render(
+      this,
+      html`
+        <div class="card" data-component="${this.componentName}">
+          <h1 class="h1">Joomla SPA Component Creator</h1>
+          <h2>Customise the component</h2>
+          <div class="card">
+            <label class="form-label" for="text-input">Component Name </label>
+            <input class="form-input" type="text" id="text-input" value="${this.componentName}" onkeyup=${this.onInputChange}>
+            <br>
+            <label class="form-label" for="select-input">For Joomla </label>
+            <select value=${this.jVersion} oninput=${this.onSelectChange} id=select-input>
+              <option value='4'>Version 4.x</option>
+              <option value='3'>Version 3.x</option>
+            </select>
+          </div>
+          <div class="card-footer">
+            <button class="build-button" onclick="${this.generateZip}" type="button">
+              Computer, build me the component...
+            </button>
+          </div>
+        </div>`
+    );
   }
 }
 
-RemoveFatElement.define('create-joomla-empty-component');
+customElements.define('create-joomla-empty-component', ComponentCreator);
