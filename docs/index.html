@@ -850,8 +850,9 @@ width: 1%;
 </head>
 
 <body>
-  <noscript>No Javascript? No Joy for you then...</noscript>
-  <create-joomla-empty-component style="min-height: 450px;"></create-joomla-empty-component>
+  <create-joomla-empty-component style="display: block; min-height: 450px;">
+    <noscript>No Javascript? No Joy for you then...</noscript>
+  </create-joomla-empty-component>
   <div class="card">
     <p>This is a client side app that will package a customed named empty component</p>
     <p>The code is leveraging Michael Babker's <a href="https://github.com/mbabker/com_empty">com_empty</a> for the Version 3.x</p>
