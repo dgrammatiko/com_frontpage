@@ -129,8 +129,7 @@ class ComponentCreator extends HTMLElement {
             <br>
             <label for="select-input">For Joomla </label>
             <select value=${this.jVersion} oninput=${this.onSelectChange} id="select-input">
-              <option value='4'>Version 4.x</option>
-              <option value='3'>Version 3.x</option>
+              ${[4, 3].map(el => html`<option value=${el} .checked=${this.jVersion === el} >Version ${el}.x</option>`)}
             </select>
           </div>
           <div class="card-footer">
