@@ -10,7 +10,7 @@ import {
 import {removeFirstNum, alpha_numeric_filter, replaceAll, reservedNames } from './utils.js';
 
 configure({
-  workerScriptsPath: '/docs/js/',
+  workerScriptsPath: '/js/',
 });
 
 class ComponentCreator extends HTMLElement {
