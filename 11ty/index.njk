@@ -12,12 +12,12 @@
   <title>Build me a blank component</title>
   <style>{{ getCss.css | safe}}</style>
   <script type="module" src="js/index.esm.js"></script>
-  <script id="data" type="application/json">{{ data | dump | safe}}</script>
 </head>
 
 <body>
   <create-joomla-empty-component style="display: block; min-height: 600px;">
     <noscript>No Javascript? No Joy for you then...</noscript>
+    <script id="data" type="application/json">{{ data | dump | safe}}</script>
   </create-joomla-empty-component>
   <div class="card">
     <p>This is a client side app that will package a customed named empty component</p>
