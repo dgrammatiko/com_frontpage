@@ -20,7 +20,7 @@
   "homepage": "https://github.com/dgrammatiko/com_frontpage#readme",
   "dependencies": {
     "@zip.js/zip.js": "^2.0.1",
-    "naf-css": "^2.0.0",
+    "naf-css": "^2.0.1",
     "uhtml": "^2.3.1"
   },
   "devDependencies": {
