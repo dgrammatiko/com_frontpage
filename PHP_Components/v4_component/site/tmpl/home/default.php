@@ -7,19 +7,10 @@
  */
 defined('_JEXEC') or die;
 
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Factory;
+$renderer = $this->document->loadRenderer('modules');
+?>
+<div><?= $renderer->render('front-page-top', [], null); ?></div>
 
-$document = Factory::getDocument();
-$renderer = $document->loadRenderer('modules');
+<div><?= $renderer->render('front-page-middle', [], null); ?></div>
 
-// Set the Document Title & Description (SEO)
-$document->setTitle('Creating perfect grid layouts');
-$document->setDescription('The best grid creation tool');
-
-// The actual page renders 3 Module Positions
-echo
-$renderer->render('front-page-top', array('style' => 'raw'), null),
-$renderer->render('front-page-middle', array('style' => 'raw'), null),
-$renderer->render('front-page-bottom', array('style' => 'raw'), null);
+<div><?= $renderer->render('front-page-bottom', [], null); ?></div>
