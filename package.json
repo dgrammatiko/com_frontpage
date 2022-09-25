@@ -24,7 +24,7 @@
     "uhtml": "^2.3.1"
   },
   "devDependencies": {
-    "@11ty/eleventy": "0.12.1",
+    "@11ty/eleventy": "1.0.2",
     "esbuild": "0.12.24",
     "http-server": "13.0.1",
     "rimraf": "3.0.2"
