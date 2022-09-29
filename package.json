@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "2.0.0-canary.16",
-    "esbuild": "0.15.9",
+    "esbuild": "0.15.10",
     "http-server": "14.1.1",
     "rimraf": "3.0.2"
   }
