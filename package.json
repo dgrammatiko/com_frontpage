@@ -24,7 +24,7 @@
     "uhtml": "^3.0.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "2.0.0-canary.28",
+    "@11ty/eleventy": "2.0.0-canary.29",
     "esbuild": "0.16.16",
     "http-server": "14.1.1",
     "rimraf": "3.0.2"
