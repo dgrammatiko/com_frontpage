@@ -27,6 +27,6 @@
     "@11ty/eleventy": "2.0.0-canary.29",
     "esbuild": "0.16.17",
     "http-server": "14.1.1",
-    "rimraf": "3.0.2"
+    "rimraf": "4.0.4"
   }
 }
