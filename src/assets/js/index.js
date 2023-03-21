@@ -5,7 +5,7 @@ import {
   ZipWriter,
   BlobReader,
   BlobWriter,
-} from '@zip.js/zip.js/lib/zip.js';
+} from "@zip.js/zip.js";
 
 import {removeFirstNum, alpha_numeric_filter, replaceAll, reservedNames } from './utils.js';
 
