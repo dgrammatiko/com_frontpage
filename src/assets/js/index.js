@@ -1,11 +1,5 @@
 import {render, html} from 'uhtml';
-import {
-  configure,
-  ZipReader,
-  ZipWriter,
-  BlobReader,
-  BlobWriter,
-} from "@zip.js/zip.js";
+import * as zip from "@zip.js/zip.js";
 
 import {removeFirstNum, alpha_numeric_filter, replaceAll, reservedNames } from './utils.js';
 
@@ -90,12 +84,12 @@ class ComponentCreator extends HTMLElement {
 
   async addFile(fileName, contents) {
     const theBlob = new Blob([contents], { type: "text/plain" });
-    await this.ZipWriter.add(fileName, new BlobReader(theBlob));
+    await this.ZipWriter.add(fileName, new zip.BlobReader(theBlob));
   }
 
   async generateZip() {
-    this.writer = new BlobWriter("application/zip");
-    this.ZipWriter = new ZipWriter(this.writer);
+    this.writer = new zip.BlobWriter("application/zip");
+    this.ZipWriter = new zip.ZipWriter(this.writer);
     let blobURL;
     const queue = [];
     const files = {};
@@ -103,7 +97,7 @@ class ComponentCreator extends HTMLElement {
     Object.keys(data).map(el => this.transform(el, data, files));
     Object.keys(files).map(el => queue.push(this.addFile(`${el}`, files[el], {})));
     await Promise.all(queue);
-    const zipReader = new ZipReader(new BlobReader(await this.ZipWriter.close()));
+    const zipReader = new zip.ZipReader(new zip.BlobReader(await this.ZipWriter.close()));
 
     try {
       await zipReader.close();
