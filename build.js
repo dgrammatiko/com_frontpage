@@ -15,7 +15,7 @@ const esbuild = require('esbuild');
   }).catch(() => process.exit(1));
 
   // Copy some pre bundled files
-  await copyFile('node_modules/@zip.js/zip.js/dist/deflate.js', '11ty/js/deflate.js');
-  await copyFile('node_modules/@zip.js/zip.js/dist/inflate.js', '11ty/js/inflate.js');
-  await copyFile('node_modules/@zip.js/zip.js/dist/z-worker.js', '11ty/js/z-worker.js');
+//   await copyFile('node_modules/@zip.js/zip.js/dist/deflate.js', '11ty/js/deflate.js');
+//   await copyFile('node_modules/@zip.js/zip.js/dist/inflate.js', '11ty/js/inflate.js');
+//   await copyFile('node_modules/@zip.js/zip.js/dist/z-worker.js', '11ty/js/z-worker.js');
 })();
