@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "2.0.1",
-    "esbuild": "0.17.15",
+    "esbuild": "0.17.16",
     "http-server": "14.1.1",
     "rimraf": "4.4.1"
   }
