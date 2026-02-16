@@ -27,6 +27,6 @@
     "@11ty/eleventy": "3.1.2",
     "esbuild": "0.27.3",
     "http-server": "14.1.1",
-    "rimraf": "6.1.2"
+    "rimraf": "6.1.3"
   }
 }
